@@ -24,7 +24,7 @@ void Create_Process() {
 
 
 	char choice;
-
+	
 	printf("How many processes do you want to make? (2~%d) : ", MAX);
 	scanf("%d", &process_num);
 	printf("How many time quantum do you want to set in RR? : ");
@@ -615,9 +615,15 @@ void P_SJF(process copy[]) {
 			time += min - time;
 			//printf("real minus 1 대입\n");
 			index = -2;
-			process[print] = -1;
-			//printf("추가 완료3!!!!!!!\n");
-			process_time[print] = time;
+			if (process[print - 1] != -1) {
+				process[print] = -1;
+				process_time[print] = time;
+			}
+			else {
+				process_time[print - 1] = time;
+				print--;
+			}
+			
 			//printf("p[%d] : %d , p_t[%d] : %d\n", print, process[print], print, process_time[print]);
 			print += 1;
 			continue;
@@ -1009,9 +1015,14 @@ void P_Priority(process copy[]) {
 			time += min - time;
 			//printf("real minus 1 대입\n");
 			index = -2;
-			process[print] = -1;
-			//printf("추가 완료3!!!!!!!\n");
-			process_time[print] = time;
+			if (process[print - 1] != -1) {
+				process[print] = -1;
+				process_time[print] = time;
+			}
+			else {
+				process_time[print - 1] = time;
+				print--;
+			}
 
 			//printf("p[%d] : %d , p_t[%d] : %d\n", print, process[print], print, process_time[print]);
 			print += 1;
